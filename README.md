@@ -7,7 +7,7 @@ A comprehensive analytical platform for exploring and analyzing news data throug
 ![React](https://img.shields.io/badge/React-18.2+-blue.svg)
 ![Neo4j](https://img.shields.io/badge/Neo4j-5.16+-green.svg)
 
-## 📋 Table of Contents
+## Table of Contents
 
 - [Overview](#overview)
 - [Features](#features)
@@ -20,7 +20,7 @@ A comprehensive analytical platform for exploring and analyzing news data throug
 - [Deployment](#deployment)
 - [Contributing](#contributing)
 
-## 🎯 Overview
+## Overview
 
 The Analytical Subsystem operates on a pre-built event knowledge graph with the structure:
 
@@ -35,7 +35,7 @@ It provides:
 
 **This system does NOT handle data ingestion or NLP processing** - it operates exclusively on an existing knowledge graph.
 
-## ✨ Features
+## Features
 
 ### 1. **Event Monitor**
 - Real-time event feed with filtering
@@ -77,7 +77,7 @@ Four types of automated alerts:
 - Temporal trends
 - Aggregations and visualizations
 
-## 🏗️ Architecture
+## Architecture
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -122,35 +122,14 @@ Four types of automated alerts:
 **Database:**
 - Neo4j 5.16+
 
-## 📦 Prerequisites
+## Prerequisites
 
 - **Python 3.11+**
 - **Node.js 18+**
 - **Neo4j 5.16+** (or Docker)
 - **Docker & Docker Compose** (optional, for containerized deployment)
 
-## 🚀 Installation
-
-### Option 1: Automated Setup (Recommended)
-
-**Linux/macOS:**
-```bash
-./setup.sh
-```
-
-**Windows:**
-```bash
-setup.bat
-```
-
-The setup script will:
-1. Check system requirements
-2. Create Python virtual environment
-3. Install backend dependencies
-4. Install frontend dependencies
-5. Create environment configuration files
-
-### Option 2: Manual Setup
+### Option 1: Manual Setup
 
 #### Backend Setup
 
@@ -198,7 +177,7 @@ docker-compose up -d neo4j
 docker-compose up
 ```
 
-## 🎮 Usage
+## Usage
 
 ### Starting the Application
 
@@ -230,23 +209,7 @@ docker-compose up -d
 - **API Documentation**: http://localhost:8000/docs
 - **Neo4j Browser**: http://localhost:7474
 
-### Initial Configuration
-
-1. **Configure Backend** (`backend/.env`):
-```env
-NEO4J_URI=bolt://localhost:7687
-NEO4J_USER=neo4j
-NEO4J_PASSWORD=your_password_here
-API_HOST=0.0.0.0
-API_PORT=8000
-```
-
-2. **Initialize Neo4j Schema**:
-The schema is automatically initialized on first startup, creating:
-- Unique constraints for IDs
-- Indexes for common queries
-
-## 📚 API Documentation
+## API Documentation
 
 ### Event Monitor Endpoints
 
@@ -331,7 +294,7 @@ curl -X POST http://localhost:8000/analytics/qa \
 
 For full interactive API documentation, visit: http://localhost:8000/docs
 
-## 🗄️ Knowledge Graph Schema
+## Knowledge Graph Schema
 
 ### Node Types
 
@@ -360,24 +323,7 @@ For full interactive API documentation, visit: http://localhost:8000/docs
 - `Article → HAS_EVENT → Event`
 - `Event → INVOLVES → Entity`
 
-### Example Cypher Queries
-
-**Find all events involving a specific entity:**
-```cypher
-MATCH (ent:Entity {text: "Russia"})<-[:INVOLVES]-(e:Event)<-[:HAS_EVENT]-(a:Article)
-RETURN e, a
-ORDER BY a.published_date DESC
-LIMIT 10
-```
-
-**Find event chains:**
-```cypher
-MATCH (e1:Event)-[:INVOLVES]->(ent:Entity)<-[:INVOLVES]-(e2:Event)
-WHERE e1.type STARTS WITH 'Conflict' AND e2.type STARTS WITH 'Diplomacy'
-RETURN e1, ent, e2
-```
-
-## 🔍 Frontend Features
+## Frontend Features
 
 ### Dashboard
 - Real-time statistics
@@ -415,7 +361,7 @@ RETURN e1, ent, e2
 - Related entities and events
 - Query history
 
-## 🚢 Deployment
+## Deployment
 
 ### Production Deployment with Docker
 
@@ -435,32 +381,6 @@ docker-compose up -d
 ```bash
 docker-compose up -d --scale backend=3
 ```
-
-### Security Considerations
-
-- Change default Neo4j password
-- Use environment variables for secrets
-- Configure CORS properly for production
-- Enable HTTPS/TLS
-- Set up authentication/authorization
-- Use secure network configurations
-
-### Performance Optimization
-
-- Configure Neo4j memory settings
-- Add database indexes for frequent queries
-- Enable caching in backend
-- Use CDN for frontend assets
-- Implement rate limiting
-
-## 📊 Sample Data Requirements
-
-For the system to work, your Neo4j database should contain:
-
-1. **Article nodes** with published dates, sources, titles
-2. **Event nodes** with types, confidence scores, trigger words
-3. **Entity nodes** with text and labels
-4. **Proper relationships** connecting these nodes
 
 ### Data Schema Validation
 
@@ -491,33 +411,7 @@ cd frontend
 npm run test
 ```
 
-## 🐛 Troubleshooting
-
-### Common Issues
-
-**Neo4j Connection Failed:**
-- Verify Neo4j is running: `docker ps` or check Neo4j Desktop
-- Check connection URI in `.env`
-- Verify credentials
-- Ensure port 7687 is not blocked
-
-**Frontend Can't Connect to Backend:**
-- Verify backend is running on port 8000
-- Check CORS configuration
-- Verify API_URL in frontend environment
-
-**No Data Displayed:**
-- Verify Neo4j database has data
-- Check API responses in browser DevTools
-- Review backend logs for errors
-
-**Performance Issues:**
-- Increase Neo4j memory allocation
-- Add database indexes
-- Reduce query result limits
-- Check network latency
-
-## 📝 Development
+## Development
 
 ### Project Structure
 
@@ -551,46 +445,6 @@ Analitical_system/
 ├── setup.bat
 └── README.md
 ```
-
-### Adding New Features
-
-1. **Backend**: Add new modules in `backend/analytics/`
-2. **Frontend**: Add new pages in `frontend/src/pages/`
-3. **API**: Update `backend/main.py` with new endpoints
-4. **Documentation**: Update this README
-
-## 🤝 Contributing
-
-Contributions are welcome! Please:
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests
-5. Submit a pull request
-
-## 📄 License
-
-This project is licensed under the MIT License.
-
-## 👥 Authors
-
-- Analytical Subsystem Development Team
-
-## 🙏 Acknowledgments
-
-- Neo4j for the graph database
-- FastAPI framework
-- React and Material-UI teams
-- Open source community
-
-## 📞 Support
-
-For issues, questions, or contributions:
-- Open an issue on GitHub
-- Check existing documentation
-- Review API documentation at `/docs`
-
 ---
 
 **Built with ❤️ for news analysis and knowledge discovery**
